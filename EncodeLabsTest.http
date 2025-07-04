@@ -1,0 +1,38 @@
+@EncodeLabsTest_HostAddress = https://localhost:7138
+
+
+POST {{EncodeLabsTest_HostAddress}}/api/Producto/add
+Content-Type: application/json
+
+{
+  //Producto
+}
+
+###
+
+GET {{EncodeLabsTest_HostAddress}}/api/Producto/enlist
+
+###
+
+@quantity=0
+GET {{EncodeLabsTest_HostAddress}}/api/Producto/enlist/{{quantity}}
+
+###
+
+@id=0
+GET {{EncodeLabsTest_HostAddress}}/api/Producto/find/{{id}}
+
+###
+
+DELETE {{EncodeLabsTest_HostAddress}}/api/Producto/remove/{{id}}
+
+###
+
+PUT {{EncodeLabsTest_HostAddress}}/api/Producto/update/{{id}}
+Content-Type: application/json
+
+{
+  //Producto
+}
+
+###
