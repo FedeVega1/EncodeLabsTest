@@ -8,37 +8,60 @@ namespace EncodeLabsTest.Controllers
     [Route("api/[controller]")]
     public class ProductosController : ControllerBase
     {
-        private readonly ProductosContext _context;
+        readonly ProductosContext _context;
 
         public ProductosController(ProductosContext context) => _context = context;
 
         [HttpPost("add")]
-        public async Task<ActionResult<Producto>> PostProducto(Producto producto)
+        public async Task<ActionResult<Product>> PostProducto([FromBody] ProductDTO dto)
         {
-            _context.Productos.Add(producto);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            return CreatedAtAction("GetProducto", new { id = producto.Id }, producto);
+            Product product = ConvertDTOToProduct(dto);
+
+            try
+            {
+                _context.Productos.Add(product);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"An exception was thrown while saving in the database: {e.Message}");
+            }
+
+            return CreatedAtAction(nameof(GetProducto), new { id = product.Id }, product);
         }
 
         [HttpGet("enlist")]
-        public async Task<ActionResult<IEnumerable<Producto>>> GetProductos() => await _context.Productos.ToListAsync();
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductos()
+        {
+            List<Product> products = await _context.Productos.ToListAsync();
+            List<ProductDTO> dtos = products.Select(ConvertProductToDTO).ToList();
+
+            return dtos;
+        }
 
         [HttpGet("find/{id}")]
-        public async Task<ActionResult<Producto>> GetProducto(int id)
+        public async Task<ActionResult<ProductDTO>> GetProducto(long id)
         {
-            Producto? producto = await _context.Productos.FindAsync(id);
+            Product? producto = await _context.Productos.FindAsync(id);
+            if (producto == null) return NotFound("Requested ID was not found");
 
-            if (producto == null) return NotFound();
-            return producto;
+            return ConvertProductToDTO(producto);
         }
 
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> PutProducto(int id, Producto producto)
+        public async Task<IActionResult> PutProducto(long id, [FromBody] ProductDTO dto)
         {
-            if (id != producto.Id) return BadRequest();
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            _context.Entry(producto).State = EntityState.Modified;
+            Product? product = await _context.Productos.FindAsync(id);
+            if (product == null) return NotFound($"Requested product with id {id} couldn't be found");
+
+            product.Name = dto.Name;
+            product.Description = dto.Description;
+            product.Price = dto.Price;
+            product.Quantity = dto.Quantity;
 
             try
             {
@@ -46,25 +69,46 @@ namespace EncodeLabsTest.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductoExists(id)) return NotFound();
-                else throw;
+                if (!_context.Productos.Any(e => e.Id == id)) return NotFound();
+                else return BadRequest();
             }
 
             return NoContent();
         }
 
         [HttpDelete("remove/{id}")]
-        public async Task<IActionResult> DeleteProducto(int id)
+        public async Task<IActionResult> DeleteProducto(long id)
         {
-            Producto? producto = await _context.Productos.FindAsync(id);
-            if (producto == null) return NotFound();
+            Product? producto = await _context.Productos.FindAsync(id);
+            if (producto == null) return NotFound("Requested ID was not found");
 
-            _context.Productos.Remove(producto);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Productos.Remove(producto);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"An Exception was thrown while removing an element from the database: {e.Message}");
+            }
 
             return NoContent();
         }
 
-        private bool ProductoExists(int id) => _context.Productos.Any(e => e.Id == id);
+        static Product ConvertDTOToProduct(ProductDTO dto) => new Product
+        {
+            Name = dto.Name,
+            Description = dto.Description,
+            Price = dto.Price,
+            Quantity = dto.Quantity
+        };
+
+        static ProductDTO ConvertProductToDTO(Product product) => new ProductDTO
+        {
+            Name = product.Name,
+            Description = product.Description,
+            Price = product.Price,
+            Quantity = product.Quantity
+        };
     }
 }
