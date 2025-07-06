@@ -2,6 +2,7 @@
 /int/
 /x64/
 /x32/
+**/obj/Debug/
 
 .vs
 *.map
