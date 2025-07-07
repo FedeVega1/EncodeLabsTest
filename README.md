@@ -1,22 +1,45 @@
-Desafio Tecnico de EncodeLabs
+# Desafio Tecnico de EncodeLabs
 
-Para ejecutar la app abrir con Visual Studio/VSCode o usar el comando dotnet run con ".NET CLI"
+## Ejecucion de la API:
+
+# Requisitos:
+	.NET SDK 8.0
+	Visual Studio (Con soporte para ASP .NET) o VSCode (Con extensiones C# y .NET)
+	Certificado DEV: dotnet dev-certs https --trust
+
+# Ejecución en VS:
+	1. Abrir el .sln
+	2. Seleccionar el perfil https
+	3. Ejecutar con F5 (Debug) o ctrl + F5
+
+# Ejecución en VS Code
+	1. Abrir carpeta raíz del proyecto
+	2. Abrir la terminal y ejecutar con: dotnet run
+	
+# Ejecución con .NET CLI:
+	1. Abrir una terminal en la carpeta raíz
+	2. Ejecutar con: dotnet run
+
 La configuración del puerto se encuentra dentro de AppSettings.json
 La coleccion de Postman se encuentra dentro de la carpeta "Postman"
+ 
+- - -
+ 
+## Endpoints:
 
-Endpoints:
-
-POST /api/Productos/add 
-
-Añade un producto a la base de datos
-
-Body: Tipo JSON
-{
-    "name": "NombreProducto",
-    "description": "DescripcionProducto",
-    "price": PrecioProducto,
-    "quantity": CantidadProducto
-}
+|-------------------------------------------|
+| POST /api/Productos/add 					|
+|											|
+| Añade un producto a la base de datos		|
+|											|
+| Body: Tipo JSON							|
+| {											|
+|    "name": "NombreProducto",				|
+|    "description": "DescripcionProducto",	|
+|    "price": PrecioProducto,				|
+|    "quantity": CantidadProducto			|
+| }											|
+|-------------------------------------------|
 
 Returns: Codigo 201 - El producto subido en la base de datos formato JSON
 
