@@ -20,7 +20,8 @@
 1. Abrir una terminal en la carpeta raíz
 2. Ejecutar con: dotnet run
 
-La configuración del puerto se encuentra dentro de AppSettings.json
+La configuración del puerto se encuentra dentro de AppSettings.json.
+
 La coleccion de Postman se encuentra dentro de la carpeta "Postman"
  
 - - -
