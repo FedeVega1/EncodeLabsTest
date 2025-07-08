@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "8afc49ae-e2ca-465b-b4ff-c94060612cde",
 		"name": "EncodeLabs Test",
+		"description": "Coleccion de request y test para la API.\n\nSi se cambia el puerto en la app, cambiar el puerto en localURL.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "46453376"
 	},
@@ -128,7 +129,8 @@
 						"Productos",
 						"add"
 					]
-				}
+				},
+				"description": "Añade un producto a la base de datos"
 			},
 			"response": [
 				{
@@ -146,10 +148,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{localURL}}/api/Productos/add",
+							"raw": "https://localhost:7138/api/Productos/add",
+							"protocol": "https",
 							"host": [
-								"{{localURL}}"
+								"localhost"
 							],
+							"port": "7138",
 							"path": [
 								"api",
 								"Productos",
@@ -293,7 +297,8 @@
 						"Productos",
 						"enlist"
 					]
-				}
+				},
+				"description": "Crea una lista de productos que se encuentran en el momento dentro de la base de datos"
 			},
 			"response": [
 				{
@@ -302,10 +307,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{localURL}}/api/Productos/enlist",
+							"raw": "https://localhost:7138/api/Productos/enlist",
+							"protocol": "https",
 							"host": [
-								"{{localURL}}"
+								"localhost"
 							],
+							"port": "7138",
 							"path": [
 								"api",
 								"Productos",
@@ -389,7 +396,8 @@
 						"find",
 						"{{last_id}}"
 					]
-				}
+				},
+				"description": "Busca un producto dentro de la base de datos usando un ID"
 			},
 			"response": [
 				{
@@ -398,10 +406,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{localURL}}/api/Productos/find/1",
+							"raw": "https://localhost:7138/api/Productos/find/1",
+							"protocol": "https",
 							"host": [
-								"{{localURL}}"
+								"localhost"
 							],
+							"port": "7138",
 							"path": [
 								"api",
 								"Productos",
@@ -544,7 +554,8 @@
 						"update",
 						"{{last_id}}"
 					]
-				}
+				},
+				"description": "Actualiza un producto que se encuentra en la base de datos usando un ID"
 			},
 			"response": [
 				{
@@ -562,10 +573,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{localURL}}/api/Productos/update/1",
+							"raw": "https://localhost:7138/api/Productos/update/1",
+							"protocol": "https",
 							"host": [
-								"{{localURL}}"
+								"localhost"
 							],
+							"port": "7138",
 							"path": [
 								"api",
 								"Productos",
@@ -694,7 +707,8 @@
 						"remove",
 						"{{last_id}}"
 					]
-				}
+				},
+				"description": "Remueve un producto de la base de datos"
 			},
 			"response": [
 				{
@@ -707,10 +721,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{localURL}}/api/Productos/remove/1",
+							"raw": "https://localhost:7138/api/Productos/remove/1",
+							"protocol": "https",
 							"host": [
-								"{{localURL}}"
+								"localhost"
 							],
+							"port": "7138",
 							"path": [
 								"api",
 								"Productos",
@@ -855,7 +871,8 @@
 						"Productos",
 						"add"
 					]
-				}
+				},
+				"description": "Envia un producto invalido para testear error handling"
 			},
 			"response": [
 				{
@@ -865,7 +882,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{product_name}}\",\r\n    \"description\": \"{{product_description}}\",\r\n    \"price\": {{product_price}},\r\n    \"quantity\": {{product_quantity}}\r\n}",
+							"raw": "{\r\n    \"name\": \"asd\",\r\n    \"description\": \"\",\r\n    \"price\": -500,\r\n    \"quantity\": -2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -873,10 +890,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{localURL}}/api/Productos/add",
+							"raw": "https://localhost:7138/api/Productos/add",
+							"protocol": "https",
 							"host": [
-								"{{localURL}}"
+								"localhost"
 							],
+							"port": "7138",
 							"path": [
 								"api",
 								"Productos",
@@ -945,7 +964,8 @@
 						"find",
 						"-1"
 					]
-				}
+				},
+				"description": "Envia una ID invalida para probar como responde la API"
 			},
 			"response": [
 				{
@@ -954,10 +974,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{localURL}}/api/Productos/find/-1",
+							"raw": "https://localhost:7138/api/Productos/find/-1",
+							"protocol": "https",
 							"host": [
-								"{{localURL}}"
+								"localhost"
 							],
+							"port": "7138",
 							"path": [
 								"api",
 								"Productos",
@@ -1091,7 +1113,8 @@
 						"update",
 						"{{last_id}}"
 					]
-				}
+				},
+				"description": "Envia un producto invalido para testear error handling"
 			},
 			"response": [
 				{
@@ -1101,7 +1124,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{product_name}}\",\r\n    \"description\": \"{{product_description}}\",\r\n    \"price\": {{product_price}},\r\n    \"quantity\": {{product_quantity}}\r\n}",
+							"raw": "{\r\n    \"name\": \"upd\",\r\n    \"description\": \"\",\r\n    \"price\": -60,\r\n    \"quantity\": -96\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1109,10 +1132,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{localURL}}/api/Productos/update/{{last_id}}",
+							"raw": "https://localhost:7138/api/Productos/update/{{last_id}}",
+							"protocol": "https",
 							"host": [
-								"{{localURL}}"
+								"localhost"
 							],
+							"port": "7138",
 							"path": [
 								"api",
 								"Productos",
@@ -1196,7 +1221,8 @@
 						"remove",
 						"-1"
 					]
-				}
+				},
+				"description": "Envia una ID invalida para probar como responde la API"
 			},
 			"response": [
 				{
@@ -1209,10 +1235,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{localURL}}/api/Productos/remove/-1",
+							"raw": "https://localhost:7138/api/Productos/remove/-1",
+							"protocol": "https",
 							"host": [
-								"{{localURL}}"
+								"localhost"
 							],
+							"port": "7138",
 							"path": [
 								"api",
 								"Productos",
